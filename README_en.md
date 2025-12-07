@@ -22,7 +22,7 @@ A modern GUI application for creating Windows installers using NSIS (Nullsoft Sc
 
 ## Screenshots
 
-![image-20251207230834133](./assets/image-20251207230834133.png)
+![image-20251207230834133](./Assets/image-20251207230834133.png)
 
 ## Requirements
 
