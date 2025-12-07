@@ -19,8 +19,8 @@
     <PublishTrimmed>false</PublishTrimmed>
 
     <!-- Assembly Info -->
-    <Company>Your Company Name</Company>
-    <Copyright>Copyright (c) 2025 Your Company Name. All rights reserved.</Copyright>
+    <Company>kznagamori</Company>
+    <Copyright>Copyright (c) 2025 kznagamori. All rights reserved.</Copyright>
     <FileVersion>1.0.0.0</FileVersion>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <Product>EasyNSIS</Product>

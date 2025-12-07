@@ -22,7 +22,7 @@ NSIS (Nullsoft Scriptable Install System) を使用してWindowsインストー�
 
 ## スクリーンショット
 
-*準備中*
+![image-20251207230834133](./assets/image-20251207230834133.png)
 
 ## 動作要件
 

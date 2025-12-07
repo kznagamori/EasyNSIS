@@ -22,7 +22,7 @@ A modern GUI application for creating Windows installers using NSIS (Nullsoft Sc
 
 ## Screenshots
 
-*Coming soon*
+![image-20251207230834133](./assets/image-20251207230834133.png)
 
 ## Requirements
 
@@ -477,8 +477,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Author
 
-Your Name / Your Company
-
----
-
-Made with [Claude Code](https://claude.ai/claude-code)
+kznagamori

@@ -80,7 +80,7 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Company:"
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Author:"
                                            Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12"/>
                                 <TextBlock Grid.Row="0" Grid.Column="1" x:Name="CompanyText"
                                            Foreground="{DynamicResource TextPrimaryBrush}" FontSize="12"/>
