@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <RootNamespace>EasyNSIS.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="UTF.Unknown" Version="2.5.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!-- Link source files from main project -->
+  <ItemGroup>
+    <Compile Include="..\..\Models\InstallerConfig.cs" Link="Models\InstallerConfig.cs" />
+    <Compile Include="..\..\Models\ValidationResult.cs" Link="Models\ValidationResult.cs" />
+    <Compile Include="..\..\Services\ValidationService.cs" Link="Services\ValidationService.cs" />
+    <Compile Include="..\..\Services\IValidationService.cs" Link="Services\IValidationService.cs" />
+    <Compile Include="..\..\Services\ConfigurationService.cs" Link="Services\ConfigurationService.cs" />
+    <Compile Include="..\..\Services\IConfigurationService.cs" Link="Services\IConfigurationService.cs" />
+    <Compile Include="..\..\Services\NsisService.cs" Link="Services\NsisService.cs" />
+    <Compile Include="..\..\Services\INsisService.cs" Link="Services\INsisService.cs" />
+    <Compile Include="..\..\Helpers\Converters.cs" Link="Helpers\Converters.cs" />
+    <Compile Include="..\..\Resources\Strings.Designer.cs" Link="Resources\Strings.Designer.cs" />
+  </ItemGroup>
+
+  <!-- Link resource files with correct logical name -->
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\Resources\Strings.resx" Link="Resources\Strings.resx" LogicalName="EasyNSIS.Resources.Strings.resources" />
+    <EmbeddedResource Include="..\..\Resources\Strings.ja.resx" Link="Resources\Strings.ja.resx" LogicalName="EasyNSIS.Resources.Strings.ja.resources" />
+  </ItemGroup>
+
+  <!-- WPF types needed for converters -->
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.WindowsDesktop.App.WPF" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,714 @@
+<Window x:Class="EasyNSIS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:EasyNSIS.ViewModels"
+        xmlns:models="clr-namespace:EasyNSIS.Models"
+        xmlns:res="clr-namespace:EasyNSIS.Resources"
+        mc:Ignorable="d"
+        Title="{Binding WindowTitle}"
+        Height="768" Width="1100"
+        MinHeight="600" MinWidth="900"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource BackgroundBrush}"
+        Closing="Window_Closing"
+        d:DataContext="{d:DesignInstance Type=vm:MainViewModel}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Navigation Panel -->
+        <Border Grid.Column="0" Background="{DynamicResource SidebarBackgroundBrush}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- App Header -->
+                <StackPanel Grid.Row="0" Margin="20,24,20,20">
+                    <TextBlock Text="{x:Static res:Strings.AppTitle}" FontSize="22" FontWeight="Bold"
+                               Foreground="{DynamicResource TextPrimaryBrush}"/>
+                    <TextBlock Text="{x:Static res:Strings.AppSubtitle}" FontSize="12"
+                               Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,4,0,0"/>
+                </StackPanel>
+
+                <!-- Navigation List -->
+                <ListBox Grid.Row="1"
+                         SelectedIndex="{Binding SelectedTabIndex}"
+                         IsEnabled="{Binding IsNotBuilding}"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         Margin="8,0"
+                         ItemContainerStyle="{StaticResource NavItem}">
+                    <ListBoxItem Content="{x:Static res:Strings.Tab_BasicInfo}" />
+                    <ListBoxItem Content="{x:Static res:Strings.Tab_SourceFolder}" />
+                    <ListBoxItem Content="{x:Static res:Strings.Tab_InstallDestination}" />
+                    <ListBoxItem Content="{x:Static res:Strings.Tab_Shortcuts}" />
+                    <ListBoxItem Content="{x:Static res:Strings.Tab_License}" />
+                    <ListBoxItem Content="{x:Static res:Strings.Tab_Output}" />
+                    <ListBoxItem Content="{x:Static res:Strings.Tab_PostInstall}" />
+                    <ListBoxItem Content="{x:Static res:Strings.Tab_SaveLoad}" />
+                </ListBox>
+
+                <!-- Bottom Area: Help & Build -->
+                <StackPanel Grid.Row="2" Margin="16,16,16,20">
+                    <!-- Help/About Button -->
+                    <Button Click="AboutButton_Click"
+                            Style="{StaticResource SecondaryButton}"
+                            HorizontalAlignment="Stretch"
+                            Margin="0,0,0,8">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="&#xE897;" FontFamily="Segoe MDL2 Assets"
+                                       VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBlock Text="{x:Static res:Strings.Btn_AboutLicenses}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Build Button -->
+                    <Button Command="{Binding BuildOrInterruptCommand}"
+                            Style="{StaticResource PrimaryButton}"
+                            HorizontalAlignment="Stretch">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xE768;" FontFamily="Segoe MDL2 Assets"
+                                           VerticalAlignment="Center" Margin="0,0,8,0"
+                                           Visibility="{Binding IsNotBuilding, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                <TextBlock VerticalAlignment="Center">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Text" Value="{x:Static res:Strings.Btn_Build}" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsBuilding}" Value="True">
+                                                    <Setter Property="Text" Value="{x:Static res:Strings.Btn_Interrupt}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Right Content Area -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="180" />
+            </Grid.RowDefinitions>
+
+            <!-- Main Content -->
+            <ScrollViewer Grid.Row="0"
+                          VerticalScrollBarVisibility="Auto"
+                          IsEnabled="{Binding IsNotBuilding}"
+                          Padding="24,20,24,0">
+                <ContentControl>
+                    <ContentControl.Style>
+                        <Style TargetType="ContentControl">
+                            <Style.Triggers>
+                                <!-- Basic Info -->
+                                <DataTrigger Binding="{Binding SelectedTabIndex}" Value="0">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <StackPanel>
+                                                <TextBlock Text="{x:Static res:Strings.Tab_BasicInfo}"
+                                                           FontSize="24" FontWeight="SemiBold"
+                                                           Foreground="{DynamicResource TextPrimaryBrush}"
+                                                           Margin="0,0,0,20"/>
+
+                                                <!-- Company & App Name Card -->
+                                                <Border Style="{StaticResource CardBorder}">
+                                                    <StackPanel>
+                                                        <TextBlock Text="{x:Static res:Strings.Section_ApplicationDetails}" Style="{StaticResource SectionTitle}"/>
+                                                        <StackPanel Margin="20,0,20,20">
+                                                            <TextBlock Text="{x:Static res:Strings.Label_CompanyName}" Style="{StaticResource FieldLabel}"/>
+                                                            <TextBox Text="{Binding CompanyName, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{StaticResource ModernTextBox}"/>
+                                                            <TextBlock Text="{Binding CompanyNameError}" Style="{StaticResource ErrorText}"/>
+
+                                                            <TextBlock Text="{x:Static res:Strings.Label_ApplicationName}" Style="{StaticResource FieldLabel}" Margin="0,16,0,6"/>
+                                                            <TextBox Text="{Binding ApplicationName, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{StaticResource ModernTextBox}"/>
+                                                            <TextBlock Text="{Binding ApplicationNameError}" Style="{StaticResource ErrorText}"/>
+
+                                                            <TextBlock Text="{x:Static res:Strings.Label_Version}" Style="{StaticResource FieldLabel}" Margin="0,16,0,6"/>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBox Text="{Binding VersionMajor, UpdateSourceTrigger=PropertyChanged}"
+                                                                         Style="{StaticResource ModernTextBox}" Width="100" MaxLength="5" TextAlignment="Center"/>
+                                                                <TextBlock Text="." VerticalAlignment="Center" Margin="6,0" FontSize="16" FontWeight="Bold"
+                                                                           Foreground="{DynamicResource TextPrimaryBrush}"/>
+                                                                <TextBox Text="{Binding VersionMinor, UpdateSourceTrigger=PropertyChanged}"
+                                                                         Style="{StaticResource ModernTextBox}" Width="100" MaxLength="5" TextAlignment="Center"/>
+                                                                <TextBlock Text="." VerticalAlignment="Center" Margin="6,0" FontSize="16" FontWeight="Bold"
+                                                                           Foreground="{DynamicResource TextPrimaryBrush}"/>
+                                                                <TextBox Text="{Binding VersionBuild, UpdateSourceTrigger=PropertyChanged}"
+                                                                         Style="{StaticResource ModernTextBox}" Width="100" MaxLength="5" TextAlignment="Center"/>
+                                                                <TextBlock Text="." VerticalAlignment="Center" Margin="6,0" FontSize="16" FontWeight="Bold"
+                                                                           Foreground="{DynamicResource TextPrimaryBrush}"/>
+                                                                <TextBox Text="{Binding VersionRevision, UpdateSourceTrigger=PropertyChanged}"
+                                                                         Style="{StaticResource ModernTextBox}" Width="100" MaxLength="5" TextAlignment="Center"/>
+                                                            </StackPanel>
+                                                            <TextBlock Text="{Binding VersionError}" Style="{StaticResource ErrorText}"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </Border>
+
+                                                <!-- Language Card -->
+                                                <Border Style="{StaticResource CardBorder}">
+                                                    <StackPanel>
+                                                        <TextBlock Text="{x:Static res:Strings.Label_Language}" Style="{StaticResource SectionTitle}"/>
+                                                        <StackPanel Margin="20,0,20,20">
+                                                            <RadioButton Content="{x:Static res:Strings.Label_UseLocale}"
+                                                                         IsChecked="{Binding UseLocale}"
+                                                                         Margin="0,0,0,8" FontSize="13"/>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <RadioButton Content="{x:Static res:Strings.Label_FixedLanguage}"
+                                                                             IsChecked="{Binding UseLocale, Converter={StaticResource InverseBoolConverter}}"
+                                                                             VerticalAlignment="Center" FontSize="13"/>
+                                                                <ComboBox ItemsSource="{Binding AvailableLanguages}"
+                                                                          SelectedItem="{Binding SelectedLanguage}"
+                                                                          IsEnabled="{Binding UseLocale, Converter={StaticResource InverseBoolConverter}}"
+                                                                          Width="120" Margin="12,0,0,0"/>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </Border>
+
+                                                <!-- Registration Mode Card -->
+                                                <Border Style="{StaticResource CardBorder}">
+                                                    <StackPanel>
+                                                        <TextBlock Text="{x:Static res:Strings.Section_RegistrationMode}" Style="{StaticResource SectionTitle}"/>
+                                                        <StackPanel Margin="20,0,20,20">
+                                                            <RadioButton Content="{x:Static res:Strings.Radio_RegisterToAppsAndFeatures}"
+                                                                         GroupName="RegistrationMode"
+                                                                         IsChecked="{Binding RegistrationMode, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:RegistrationMode.RegisterToAppsAndFeatures}}"
+                                                                         Margin="0,0,0,8" FontSize="13"/>
+                                                            <RadioButton Content="{x:Static res:Strings.Radio_NoRegistry}"
+                                                                         GroupName="RegistrationMode"
+                                                                         IsChecked="{Binding RegistrationMode, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:RegistrationMode.NoRegistry}}"
+                                                                         Margin="0,0,0,8" FontSize="13"/>
+                                                            <Border Background="#4D3D00" CornerRadius="4" Padding="12" Margin="0,8,0,0"
+                                                                    Visibility="{Binding ShowNoRegistryWarning, Converter={StaticResource BoolToVisibilityConverter}}">
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <TextBlock Text="&#xE7BA;" FontFamily="Segoe MDL2 Assets"
+                                                                               Foreground="#FFB900" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                                                    <TextBlock Text="{x:Static res:Strings.Label_NoRegistryWarning}"
+                                                                               Foreground="#FFB900" FontSize="12" TextWrapping="Wrap"/>
+                                                                </StackPanel>
+                                                            </Border>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </Border>
+
+                                                <!-- Installer Icon Card -->
+                                                <Border Style="{StaticResource CardBorder}">
+                                                    <StackPanel>
+                                                        <TextBlock Text="{x:Static res:Strings.Label_InstallerIcon}" Style="{StaticResource SectionTitle}"/>
+                                                        <StackPanel Margin="20,0,20,20">
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*" />
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBox Grid.Column="0" Text="{Binding InstallerIcon, UpdateSourceTrigger=PropertyChanged}"
+                                                                         Style="{StaticResource ModernTextBox}"/>
+                                                                <Button Grid.Column="1" Content="{x:Static res:Strings.Btn_Browse}"
+                                                                        Command="{Binding BrowseInstallerIconCommand}"
+                                                                        Style="{StaticResource SecondaryButton}"
+                                                                        Margin="8,0,0,0"/>
+                                                            </Grid>
+                                                            <TextBlock Text="{Binding InstallerIconError}" Style="{StaticResource ErrorText}"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+
+                                <!-- Source Folder -->
+                                <DataTrigger Binding="{Binding SelectedTabIndex}" Value="1">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <StackPanel>
+                                                <TextBlock Text="{x:Static res:Strings.Tab_SourceFolder}"
+                                                           FontSize="24" FontWeight="SemiBold"
+                                                           Foreground="{DynamicResource TextPrimaryBrush}"
+                                                           Margin="0,0,0,20"/>
+
+                                                <Border Style="{StaticResource CardBorder}">
+                                                    <StackPanel>
+                                                        <TextBlock Text="{x:Static res:Strings.Tab_SourceFolder}" Style="{StaticResource SectionTitle}"/>
+                                                        <StackPanel Margin="20,0,20,20">
+                                                            <TextBlock Text="{x:Static res:Strings.Label_SourceFolderDescription}"
+                                                                       Style="{StaticResource DescriptionText}"/>
+                                                            <TextBlock Text="{x:Static res:Strings.Label_SourceFolderPath}" Style="{StaticResource FieldLabel}"/>
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*" />
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBox Grid.Column="0" Text="{Binding SourceFolderPath, UpdateSourceTrigger=PropertyChanged}"
+                                                                         Style="{StaticResource ModernTextBox}"/>
+                                                                <Button Grid.Column="1" Content="{x:Static res:Strings.Btn_Browse}"
+                                                                        Command="{Binding BrowseSourceFolderCommand}"
+                                                                        Style="{StaticResource SecondaryButton}"
+                                                                        Margin="8,0,0,0"/>
+                                                            </Grid>
+                                                            <TextBlock Text="{Binding SourceFolderError}" Style="{StaticResource ErrorText}"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+
+                                <!-- Install Destination -->
+                                <DataTrigger Binding="{Binding SelectedTabIndex}" Value="2">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <StackPanel>
+                                                <TextBlock Text="{x:Static res:Strings.Tab_InstallDestination}"
+                                                           FontSize="24" FontWeight="SemiBold"
+                                                           Foreground="{DynamicResource TextPrimaryBrush}"
+                                                           Margin="0,0,0,20"/>
+
+                                                <Border Style="{StaticResource CardBorder}">
+                                                    <StackPanel>
+                                                        <TextBlock Text="{x:Static res:Strings.Label_InstallDestination}" Style="{StaticResource SectionTitle}"/>
+                                                        <StackPanel Margin="20,0,20,20">
+                                                            <RadioButton Content="{x:Static res:Strings.Radio_AppDataRoaming}"
+                                                                         GroupName="InstallDestination"
+                                                                         IsChecked="{Binding InstallDestinationType, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:InstallDestinationType.AppDataRoaming}}"
+                                                                         Margin="0,0,0,8" FontSize="13"/>
+                                                            <RadioButton Content="{x:Static res:Strings.Radio_AppDataLocal}"
+                                                                         GroupName="InstallDestination"
+                                                                         IsChecked="{Binding InstallDestinationType, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:InstallDestinationType.AppDataLocal}}"
+                                                                         Margin="0,0,0,8" FontSize="13"/>
+                                                            <RadioButton Content="{x:Static res:Strings.Radio_ProgramFiles}"
+                                                                         GroupName="InstallDestination"
+                                                                         IsChecked="{Binding InstallDestinationType, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:InstallDestinationType.ProgramFiles}}"
+                                                                         Margin="0,0,0,8" FontSize="13"/>
+                                                            <RadioButton Content="{x:Static res:Strings.Radio_Custom}"
+                                                                         GroupName="InstallDestination"
+                                                                         IsChecked="{Binding InstallDestinationType, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:InstallDestinationType.Custom}}"
+                                                                         Margin="0,0,0,8" FontSize="13"/>
+
+                                                            <Grid Margin="24,0,0,0">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*" />
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBox Grid.Column="0" Text="{Binding CustomInstallPath, UpdateSourceTrigger=PropertyChanged}"
+                                                                         Style="{StaticResource ModernTextBox}"
+                                                                         IsEnabled="{Binding InstallDestinationType, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:InstallDestinationType.Custom}}" />
+                                                                <Button Grid.Column="1" Content="{x:Static res:Strings.Btn_Browse}"
+                                                                        Command="{Binding BrowseCustomInstallPathCommand}"
+                                                                        Style="{StaticResource SecondaryButton}"
+                                                                        IsEnabled="{Binding InstallDestinationType, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:InstallDestinationType.Custom}}"
+                                                                        Margin="8,0,0,0"/>
+                                                            </Grid>
+                                                            <TextBlock Text="{Binding CustomPathError}" Style="{StaticResource ErrorText}" Margin="24,0,0,0"/>
+
+                                                            <CheckBox Content="{x:Static res:Strings.Label_AllowUserChange}"
+                                                                      IsChecked="{Binding AllowUserChangeInstallPath}"
+                                                                      Margin="0,16,0,0" FontSize="13"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </Border>
+
+                                                <!-- Cleanup Type Card -->
+                                                <Border Style="{StaticResource CardBorder}">
+                                                    <StackPanel>
+                                                        <TextBlock Text="{x:Static res:Strings.Label_CleanupType}" Style="{StaticResource SectionTitle}"/>
+                                                        <StackPanel Margin="20,0,20,20">
+                                                            <RadioButton Content="{x:Static res:Strings.Radio_CleanupAll}"
+                                                                         GroupName="CleanupType"
+                                                                         IsChecked="{Binding CleanupType, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:CleanupType.All}}"
+                                                                         Margin="0,0,0,8" FontSize="13"/>
+                                                            <RadioButton Content="{x:Static res:Strings.Radio_CleanupPreserve}"
+                                                                         GroupName="CleanupType"
+                                                                         IsChecked="{Binding CleanupType, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:CleanupType.PreserveUserData}}"
+                                                                         FontSize="13"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+
+                                <!-- Shortcuts -->
+                                <DataTrigger Binding="{Binding SelectedTabIndex}" Value="3">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <StackPanel>
+                                                <TextBlock Text="{x:Static res:Strings.Tab_Shortcuts}"
+                                                           FontSize="24" FontWeight="SemiBold"
+                                                           Foreground="{DynamicResource TextPrimaryBrush}"
+                                                           Margin="0,0,0,20"/>
+
+                                                <!-- Desktop Shortcuts -->
+                                                <Border Style="{StaticResource CardBorder}">
+                                                    <StackPanel>
+                                                        <TextBlock Text="{x:Static res:Strings.Label_DesktopShortcuts}" Style="{StaticResource SectionTitle}"/>
+                                                        <StackPanel Margin="20,0,20,20">
+                                                            <Grid Height="160">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*" />
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <Border Grid.Column="0" BorderBrush="{DynamicResource BorderBrush}"
+                                                                        BorderThickness="1" CornerRadius="4">
+                                                                    <ListView ItemsSource="{Binding DesktopShortcuts}"
+                                                                              SelectedItem="{Binding SelectedDesktopShortcut}"
+                                                                              BorderThickness="0">
+                                                                        <ListView.View>
+                                                                            <GridView>
+                                                                                <GridViewColumn Header="{x:Static res:Strings.Header_Type}" Width="70" DisplayMemberBinding="{Binding Type}" />
+                                                                                <GridViewColumn Header="{x:Static res:Strings.Header_Path}" Width="350" DisplayMemberBinding="{Binding Path}" />
+                                                                            </GridView>
+                                                                        </ListView.View>
+                                                                    </ListView>
+                                                                </Border>
+                                                                <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Top">
+                                                                    <Button Content="{x:Static res:Strings.Btn_AddFile}"
+                                                                            Command="{Binding AddDesktopFileShortcutCommand}"
+                                                                            Style="{StaticResource SecondaryButton}"
+                                                                            Margin="0,0,0,8" MinWidth="90"/>
+                                                                    <Button Content="{x:Static res:Strings.Btn_AddFolder}"
+                                                                            Command="{Binding AddDesktopFolderShortcutCommand}"
+                                                                            Style="{StaticResource SecondaryButton}"
+                                                                            Margin="0,0,0,8" MinWidth="90"/>
+                                                                    <Button Content="{x:Static res:Strings.Btn_Remove}"
+                                                                            Command="{Binding RemoveDesktopShortcutCommand}"
+                                                                            Style="{StaticResource SecondaryButton}"
+                                                                            MinWidth="90"/>
+                                                                </StackPanel>
+                                                            </Grid>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </Border>
+
+                                                <!-- Start Menu Shortcuts -->
+                                                <Border Style="{StaticResource CardBorder}">
+                                                    <StackPanel>
+                                                        <TextBlock Text="{x:Static res:Strings.Label_StartMenuShortcuts}" Style="{StaticResource SectionTitle}"/>
+                                                        <StackPanel Margin="20,0,20,20">
+                                                            <Grid Height="160">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*" />
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <Border Grid.Column="0" BorderBrush="{DynamicResource BorderBrush}"
+                                                                        BorderThickness="1" CornerRadius="4">
+                                                                    <ListView ItemsSource="{Binding StartMenuShortcuts}"
+                                                                              SelectedItem="{Binding SelectedStartMenuShortcut}"
+                                                                              BorderThickness="0">
+                                                                        <ListView.View>
+                                                                            <GridView>
+                                                                                <GridViewColumn Header="{x:Static res:Strings.Header_Type}" Width="70" DisplayMemberBinding="{Binding Type}" />
+                                                                                <GridViewColumn Header="{x:Static res:Strings.Header_Path}" Width="350" DisplayMemberBinding="{Binding Path}" />
+                                                                            </GridView>
+                                                                        </ListView.View>
+                                                                    </ListView>
+                                                                </Border>
+                                                                <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Top">
+                                                                    <Button Content="{x:Static res:Strings.Btn_AddFile}"
+                                                                            Command="{Binding AddStartMenuFileShortcutCommand}"
+                                                                            Style="{StaticResource SecondaryButton}"
+                                                                            Margin="0,0,0,8" MinWidth="90"/>
+                                                                    <Button Content="{x:Static res:Strings.Btn_AddFolder}"
+                                                                            Command="{Binding AddStartMenuFolderShortcutCommand}"
+                                                                            Style="{StaticResource SecondaryButton}"
+                                                                            Margin="0,0,0,8" MinWidth="90"/>
+                                                                    <Button Content="{x:Static res:Strings.Btn_Remove}"
+                                                                            Command="{Binding RemoveStartMenuShortcutCommand}"
+                                                                            Style="{StaticResource SecondaryButton}"
+                                                                            MinWidth="90"/>
+                                                                </StackPanel>
+                                                            </Grid>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+
+                                <!-- License -->
+                                <DataTrigger Binding="{Binding SelectedTabIndex}" Value="4">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <StackPanel>
+                                                <TextBlock Text="{x:Static res:Strings.Tab_License}"
+                                                           FontSize="24" FontWeight="SemiBold"
+                                                           Foreground="{DynamicResource TextPrimaryBrush}"
+                                                           Margin="0,0,0,20"/>
+
+                                                <Border Style="{StaticResource CardBorder}">
+                                                    <StackPanel>
+                                                        <TextBlock Text="{x:Static res:Strings.Label_LicenseType}" Style="{StaticResource SectionTitle}"/>
+                                                        <StackPanel Margin="20,0,20,20">
+                                                            <RadioButton Content="{x:Static res:Strings.Radio_LicenseDefault}"
+                                                                         IsChecked="{Binding LicenseType, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LicenseType.Default}}"
+                                                                         Margin="0,0,0,12" FontSize="13"/>
+
+                                                            <RadioButton Content="{x:Static res:Strings.Radio_LicenseFile}"
+                                                                         IsChecked="{Binding LicenseType, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LicenseType.File}}"
+                                                                         Margin="0,0,0,8" FontSize="13"/>
+                                                            <Grid Margin="24,0,0,0">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*" />
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBox Grid.Column="0" Text="{Binding LicenseFilePath, UpdateSourceTrigger=PropertyChanged}"
+                                                                         Style="{StaticResource ModernTextBox}"
+                                                                         IsEnabled="{Binding LicenseType, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LicenseType.File}}" />
+                                                                <Button Grid.Column="1" Content="{x:Static res:Strings.Btn_Browse}"
+                                                                        Command="{Binding BrowseLicenseFileCommand}"
+                                                                        Style="{StaticResource SecondaryButton}"
+                                                                        IsEnabled="{Binding LicenseType, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LicenseType.File}}"
+                                                                        Margin="8,0,0,0"/>
+                                                            </Grid>
+                                                            <TextBlock Text="{Binding LicenseFileError}" Style="{StaticResource ErrorText}" Margin="24,0,0,12"/>
+
+                                                            <RadioButton Content="{x:Static res:Strings.Radio_LicenseText}"
+                                                                         IsChecked="{Binding LicenseType, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LicenseType.Text}}"
+                                                                         Margin="0,0,0,8" FontSize="13"/>
+                                                            <Border Margin="24,0,0,0" BorderBrush="{DynamicResource BorderBrush}"
+                                                                    BorderThickness="1" CornerRadius="4">
+                                                                <TextBox Text="{Binding LicenseText, UpdateSourceTrigger=PropertyChanged}"
+                                                                         IsEnabled="{Binding LicenseType, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LicenseType.Text}}"
+                                                                         AcceptsReturn="True" TextWrapping="Wrap"
+                                                                         Height="200" VerticalScrollBarVisibility="Auto"
+                                                                         Padding="12" BorderThickness="0" FontSize="13"/>
+                                                            </Border>
+                                                            <TextBlock Text="{Binding LicenseTextError}" Style="{StaticResource ErrorText}" Margin="24,0,0,0"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+
+                                <!-- Output Settings -->
+                                <DataTrigger Binding="{Binding SelectedTabIndex}" Value="5">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <StackPanel>
+                                                <TextBlock Text="{x:Static res:Strings.Tab_Output}"
+                                                           FontSize="24" FontWeight="SemiBold"
+                                                           Foreground="{DynamicResource TextPrimaryBrush}"
+                                                           Margin="0,0,0,20"/>
+
+                                                <Border Style="{StaticResource CardBorder}">
+                                                    <StackPanel>
+                                                        <TextBlock Text="{x:Static res:Strings.Label_OutputFolder}" Style="{StaticResource SectionTitle}"/>
+                                                        <StackPanel Margin="20,0,20,20">
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*" />
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBox Grid.Column="0" Text="{Binding OutputFolder, UpdateSourceTrigger=PropertyChanged}"
+                                                                         Style="{StaticResource ModernTextBox}"/>
+                                                                <Button Grid.Column="1" Content="{x:Static res:Strings.Btn_Browse}"
+                                                                        Command="{Binding BrowseOutputFolderCommand}"
+                                                                        Style="{StaticResource SecondaryButton}"
+                                                                        Margin="8,0,0,0"/>
+                                                            </Grid>
+                                                            <TextBlock Text="{Binding OutputFolderError}" Style="{StaticResource ErrorText}"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+
+                                <!-- PostInstall -->
+                                <DataTrigger Binding="{Binding SelectedTabIndex}" Value="6">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <StackPanel>
+                                                <TextBlock Text="{x:Static res:Strings.Tab_PostInstall}"
+                                                           FontSize="24" FontWeight="SemiBold"
+                                                           Foreground="{DynamicResource TextPrimaryBrush}"
+                                                           Margin="0,0,0,20"/>
+
+                                                <Border Style="{StaticResource CardBorder}">
+                                                    <StackPanel>
+                                                        <TextBlock Text="{x:Static res:Strings.Section_PostInstallActions}" Style="{StaticResource SectionTitle}"/>
+                                                        <StackPanel Margin="20,0,20,20">
+                                                            <CheckBox Content="{x:Static res:Strings.Label_OpenInstallFolder}"
+                                                                      IsChecked="{Binding OpenInstallFolderAfterInstall}"
+                                                                      Margin="0,0,0,16" FontSize="13"/>
+
+                                                            <CheckBox Content="{x:Static res:Strings.Label_RunAfterInstall}"
+                                                                      IsChecked="{Binding RunAfterInstall}"
+                                                                      Margin="0,0,0,8" FontSize="13"/>
+
+                                                            <StackPanel Margin="24,0,0,0"
+                                                                        IsEnabled="{Binding RunAfterInstall}">
+                                                                <TextBlock Text="{x:Static res:Strings.Label_RunAfterInstallPath}" Style="{StaticResource FieldLabel}"/>
+                                                                <Grid>
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="*" />
+                                                                        <ColumnDefinition Width="Auto" />
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <TextBox Grid.Column="0" Text="{Binding RunAfterInstallPath, UpdateSourceTrigger=PropertyChanged}"
+                                                                             Style="{StaticResource ModernTextBox}"/>
+                                                                    <Button Grid.Column="1" Content="{x:Static res:Strings.Btn_Browse}"
+                                                                            Command="{Binding BrowseRunAfterInstallPathCommand}"
+                                                                            Style="{StaticResource SecondaryButton}"
+                                                                            Margin="8,0,0,0"/>
+                                                                </Grid>
+                                                                <TextBlock Text="{Binding RunAfterInstallPathError}" Style="{StaticResource ErrorText}"/>
+                                                                <TextBlock Text="{x:Static res:Strings.Desc_RunAfterInstall}"
+                                                                           Style="{StaticResource DescriptionText}"
+                                                                           Margin="0,4,0,0"/>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+
+                                <!-- Save/Load -->
+                                <DataTrigger Binding="{Binding SelectedTabIndex}" Value="7">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <StackPanel>
+                                                <TextBlock Text="{x:Static res:Strings.Tab_SaveLoad}"
+                                                           FontSize="24" FontWeight="SemiBold"
+                                                           Foreground="{DynamicResource TextPrimaryBrush}"
+                                                           Margin="0,0,0,20"/>
+
+                                                <Border Style="{StaticResource CardBorder}">
+                                                    <StackPanel>
+                                                        <TextBlock Text="{x:Static res:Strings.Label_ConfigFile}" Style="{StaticResource SectionTitle}"/>
+                                                        <StackPanel Margin="20,0,20,20">
+                                                            <TextBlock Text="{x:Static res:Strings.Desc_SaveLoadConfig}"
+                                                                       Style="{StaticResource DescriptionText}"/>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <Button Content="{x:Static res:Strings.Btn_Load}"
+                                                                        Command="{Binding LoadConfigCommand}"
+                                                                        Style="{StaticResource SecondaryButton}"
+                                                                        Margin="0,0,12,0" MinWidth="100"/>
+                                                                <Button Content="{x:Static res:Strings.Btn_Save}"
+                                                                        Command="{Binding SaveConfigCommand}"
+                                                                        Style="{StaticResource SecondaryButton}"
+                                                                        Margin="0,0,12,0" MinWidth="100"/>
+                                                                <Button Content="{x:Static res:Strings.Btn_SaveAs}"
+                                                                        Command="{Binding SaveConfigAsCommand}"
+                                                                        Style="{StaticResource SecondaryButton}"
+                                                                        MinWidth="120"/>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+            </ScrollViewer>
+
+            <!-- Splitter -->
+            <GridSplitter Grid.Row="1" Height="6" HorizontalAlignment="Stretch"
+                          Background="{DynamicResource SplitterBrush}" Margin="24,4"
+                          Cursor="SizeNS">
+                <GridSplitter.Template>
+                    <ControlTemplate TargetType="GridSplitter">
+                        <Border Background="Transparent" VerticalAlignment="Center">
+                            <Border Height="4" CornerRadius="2"
+                                    Background="{DynamicResource SplitterBrush}"/>
+                        </Border>
+                    </ControlTemplate>
+                </GridSplitter.Template>
+            </GridSplitter>
+
+            <!-- Bottom Log Area -->
+            <Border Grid.Row="2" Margin="24,8,24,20">
+                <Border Background="{DynamicResource CardBackgroundBrush}" CornerRadius="8"
+                        Effect="{Binding Effect, Source={StaticResource CardBorder}}">
+                    <Grid>
+                        <!-- Build Log -->
+                        <Border CornerRadius="8" Background="{DynamicResource LogBackgroundBrush}">
+                            <TextBox Text="{Binding BuildLog, Mode=OneWay}"
+                                     IsReadOnly="True"
+                                     FontFamily="Cascadia Code, Consolas, monospace"
+                                     FontSize="12"
+                                     Foreground="{DynamicResource LogTextBrush}"
+                                     Background="Transparent"
+                                     BorderThickness="0"
+                                     Padding="16,12"
+                                     VerticalScrollBarVisibility="Auto"
+                                     HorizontalScrollBarVisibility="Auto"
+                                     TextWrapping="NoWrap"/>
+                        </Border>
+
+                        <!-- Building Overlay -->
+                        <Border Background="{DynamicResource LogOverlayBrush}" CornerRadius="8"
+                                Visibility="{Binding IsBuilding, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <!-- Spinning indicator -->
+                                <Border Width="40" Height="40" CornerRadius="20" BorderThickness="3"
+                                        RenderTransformOrigin="0.5,0.5">
+                                    <Border.BorderBrush>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                            <GradientStop Color="{StaticResource PrimaryColor}" Offset="0"/>
+                                            <GradientStop Color="Transparent" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.BorderBrush>
+                                    <Border.RenderTransform>
+                                        <RotateTransform x:Name="SpinnerRotation" Angle="0"/>
+                                    </Border.RenderTransform>
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsBuilding}" Value="True">
+                                                    <DataTrigger.EnterActions>
+                                                        <BeginStoryboard x:Name="SpinStoryboard">
+                                                            <Storyboard>
+                                                                <DoubleAnimation Storyboard.TargetProperty="(Border.RenderTransform).(RotateTransform.Angle)"
+                                                                                 From="0" To="360" Duration="0:0:0.8"
+                                                                                 RepeatBehavior="Forever"/>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </DataTrigger.EnterActions>
+                                                    <DataTrigger.ExitActions>
+                                                        <StopStoryboard BeginStoryboardName="SpinStoryboard"/>
+                                                    </DataTrigger.ExitActions>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                </Border>
+                                <TextBlock Text="{x:Static res:Strings.Msg_Building}" Foreground="White"
+                                           FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

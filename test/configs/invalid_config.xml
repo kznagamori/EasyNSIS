@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EasyNsisConfig version="1">
+  <BasicInfo>
+    <CompanyName>テスト会社
+    <!-- Missing closing tag intentionally -->
+    <ApplicationName>テストアプリ</ApplicationName>
+    <Version>invalid-version</Version>
+  </BasicInfo>
+  <!-- Invalid XML structure for testing error handling -->
+  <SourceFolder>
+    <Path>
+  </SourceFolder>
+</EasyNsisConfig>

@@ -1,0 +1,63 @@
+SOFTWARE LICENSE AGREEMENT (MIT License Based)
+
+Please read this License Agreement carefully before installing the Software.
+By clicking "I Agree", you agree to be bound by the terms of this Agreement.
+
+================================================================================
+                        IMPORTANT: NO WARRANTY DISCLAIMER
+================================================================================
+
+THIS SOFTWARE IS PROVIDED "AS IS" FREE OF CHARGE, WITHOUT ANY WARRANTY.
+THE AUTHOR SHALL NOT BE LIABLE FOR ANY DAMAGES ARISING FROM THE USE OF
+THIS SOFTWARE. USE OF THIS SOFTWARE IS ENTIRELY AT YOUR OWN RISK.
+
+================================================================================
+
+1. LICENSE GRANT
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights:
+- To use the Software
+- To copy the Software
+- To modify the Software
+- To merge the Software
+- To publish the Software
+- To distribute the Software
+- To sublicense the Software
+- To sell copies of the Software
+
+2. COPYRIGHT NOTICE
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+3. NO WARRANTY
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO:
+- THE WARRANTIES OF MERCHANTABILITY
+- FITNESS FOR A PARTICULAR PURPOSE
+- NONINFRINGEMENT
+
+4. LIMITATION OF LIABILITY
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+USE OR OTHER DEALINGS IN THE SOFTWARE, INCLUDING BUT NOT LIMITED TO:
+- DIRECT DAMAGES
+- INDIRECT DAMAGES
+- INCIDENTAL DAMAGES
+- SPECIAL DAMAGES
+- EXEMPLARY DAMAGES
+- CONSEQUENTIAL DAMAGES
+- LOSS OF DATA
+- LOSS OF PROFITS
+- BUSINESS INTERRUPTION
+
+5. USE AT YOUR OWN RISK
+Use of this Software is at your own risk. You assume all risks associated
+with the quality and performance of this Software.
+
+6. NO SUPPORT OBLIGATION
+The author is under no obligation to provide support, maintenance, updates,
+enhancements, or modifications for this Software.
+
+This license is based on the MIT License.

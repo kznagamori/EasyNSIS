@@ -1,0 +1,16 @@
+{
+  "application": {
+    "name": "SampleApp",
+    "version": "1.0.0.0",
+    "language": "ja-JP"
+  },
+  "settings": {
+    "theme": "dark",
+    "autoUpdate": true,
+    "logLevel": "info"
+  },
+  "paths": {
+    "data": "%APPDATA%\\SampleApp\\Data",
+    "cache": "%LOCALAPPDATA%\\SampleApp\\Cache"
+  }
+}

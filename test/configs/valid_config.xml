@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EasyNsisConfig version="1">
+  <BasicInfo>
+    <CompanyName>テスト会社</CompanyName>
+    <ApplicationName>テストアプリ</ApplicationName>
+    <Version>1.2.3.4</Version>
+    <Language type="locale" value="ja-JP"/>
+    <RegistrationMode>RegisterToAppsAndFeatures</RegistrationMode>
+    <InstallerIcon></InstallerIcon>
+  </BasicInfo>
+  <SourceFolder>
+    <Path>C:\TestSource</Path>
+  </SourceFolder>
+  <InstallDestination>
+    <Type>AppDataRoaming</Type>
+    <CustomPath></CustomPath>
+    <AllowUserChange>true</AllowUserChange>
+  </InstallDestination>
+  <Shortcuts>
+    <Desktop>
+      <Item type="file">TestApp.exe</Item>
+    </Desktop>
+    <StartMenu>
+      <Item type="file">TestApp.exe</Item>
+      <Item type="folder">docs</Item>
+    </StartMenu>
+  </Shortcuts>
+  <License>
+    <Type>default</Type>
+    <FilePath></FilePath>
+    <Text></Text>
+  </License>
+  <Uninstall>
+    <Cleanup>PreserveUserData</Cleanup>
+  </Uninstall>
+  <Output>
+    <Folder>C:\TestOutput</Folder>
+  </Output>
+  <PostInstall>
+    <OpenInstallFolder>false</OpenInstallFolder>
+    <RunAfterInstall>false</RunAfterInstall>
+    <RunAfterInstallPath></RunAfterInstallPath>
+  </PostInstall>
+</EasyNsisConfig>

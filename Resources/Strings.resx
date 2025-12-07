@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="0" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- Application -->
+  <data name="AppTitle" xml:space="preserve">
+    <value>EasyNSIS</value>
+  </data>
+  <data name="AppTitle_New" xml:space="preserve">
+    <value>EasyNSIS - New</value>
+  </data>
+  <data name="AppTitle_Format" xml:space="preserve">
+    <value>EasyNSIS - {0}</value>
+  </data>
+  <data name="AppSubtitle" xml:space="preserve">
+    <value>Installer Builder</value>
+  </data>
+  <data name="Btn_AboutLicenses" xml:space="preserve">
+    <value>About / Licenses</value>
+  </data>
+
+  <!-- Tabs -->
+  <data name="Tab_BasicInfo" xml:space="preserve">
+    <value>Basic Information</value>
+  </data>
+  <data name="Tab_SourceFolder" xml:space="preserve">
+    <value>Source Folder</value>
+  </data>
+  <data name="Tab_InstallDestination" xml:space="preserve">
+    <value>Install Destination</value>
+  </data>
+  <data name="Tab_Shortcuts" xml:space="preserve">
+    <value>Shortcuts</value>
+  </data>
+  <data name="Tab_License" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="Tab_Output" xml:space="preserve">
+    <value>Output Settings</value>
+  </data>
+  <data name="Tab_SaveLoad" xml:space="preserve">
+    <value>Save/Load</value>
+  </data>
+  <data name="Tab_PostInstall" xml:space="preserve">
+    <value>Post-Install</value>
+  </data>
+
+  <!-- Basic Info -->
+  <data name="Section_ApplicationDetails" xml:space="preserve">
+    <value>Application Details</value>
+  </data>
+  <data name="Section_RegistrationMode" xml:space="preserve">
+    <value>Registration Mode</value>
+  </data>
+  <data name="Radio_RegisterToAppsAndFeatures" xml:space="preserve">
+    <value>Register to Apps &amp; Features</value>
+  </data>
+  <data name="Radio_NoRegistry" xml:space="preserve">
+    <value>Do not use registry</value>
+  </data>
+  <data name="Label_NoRegistryWarning" xml:space="preserve">
+    <value>When enabled, registration to Apps &amp; Features will be disabled and some features will be unavailable.</value>
+  </data>
+  <data name="Label_CompanyName" xml:space="preserve">
+    <value>Company/Organization Name:</value>
+  </data>
+  <data name="Label_ApplicationName" xml:space="preserve">
+    <value>Application Name:</value>
+  </data>
+  <data name="Label_Version" xml:space="preserve">
+    <value>Version:</value>
+  </data>
+  <data name="Label_Language" xml:space="preserve">
+    <value>Language Settings</value>
+  </data>
+  <data name="Label_UseLocale" xml:space="preserve">
+    <value>Use system locale</value>
+  </data>
+  <data name="Label_FixedLanguage" xml:space="preserve">
+    <value>Fixed language:</value>
+  </data>
+  <data name="Label_InstallerIcon" xml:space="preserve">
+    <value>Installer Icon</value>
+  </data>
+
+  <!-- Source Folder -->
+  <data name="Label_SourceFolderPath" xml:space="preserve">
+    <value>Source Folder Path:</value>
+  </data>
+  <data name="Label_SourceFolderDescription" xml:space="preserve">
+    <value>Select the folder containing files to be installed. All files including subfolders will be included.</value>
+  </data>
+
+  <!-- Install Destination -->
+  <data name="Label_InstallDestination" xml:space="preserve">
+    <value>Default Install Location</value>
+  </data>
+  <data name="Radio_AppDataRoaming" xml:space="preserve">
+    <value>AppData (Roaming)</value>
+  </data>
+  <data name="Radio_AppDataLocal" xml:space="preserve">
+    <value>AppData (Local)</value>
+  </data>
+  <data name="Radio_ProgramFiles" xml:space="preserve">
+    <value>Program Files (Requires admin rights)</value>
+  </data>
+  <data name="Radio_Custom" xml:space="preserve">
+    <value>Custom:</value>
+  </data>
+  <data name="Label_AllowUserChange" xml:space="preserve">
+    <value>Allow user to change install location</value>
+  </data>
+
+  <!-- Shortcuts -->
+  <data name="Label_DesktopShortcuts" xml:space="preserve">
+    <value>Desktop Shortcuts</value>
+  </data>
+  <data name="Label_StartMenuShortcuts" xml:space="preserve">
+    <value>Start Menu Shortcuts</value>
+  </data>
+  <data name="Header_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Header_Path" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="Btn_AddFile" xml:space="preserve">
+    <value>+ File</value>
+  </data>
+  <data name="Btn_AddFolder" xml:space="preserve">
+    <value>+ Folder</value>
+  </data>
+  <data name="Btn_Remove" xml:space="preserve">
+    <value>-</value>
+  </data>
+
+  <!-- License -->
+  <data name="Label_LicenseType" xml:space="preserve">
+    <value>License Type</value>
+  </data>
+  <data name="Radio_LicenseDefault" xml:space="preserve">
+    <value>Default license</value>
+  </data>
+  <data name="Radio_LicenseFile" xml:space="preserve">
+    <value>External file:</value>
+  </data>
+  <data name="Radio_LicenseText" xml:space="preserve">
+    <value>Enter text:</value>
+  </data>
+
+  <!-- Output -->
+  <data name="Label_OutputFolder" xml:space="preserve">
+    <value>Output Folder</value>
+  </data>
+  <data name="Label_CleanupType" xml:space="preserve">
+    <value>Uninstall Cleanup</value>
+  </data>
+  <data name="Radio_CleanupAll" xml:space="preserve">
+    <value>Delete all files</value>
+  </data>
+  <data name="Radio_CleanupPreserve" xml:space="preserve">
+    <value>Preserve user data</value>
+  </data>
+
+  <!-- Save/Load -->
+  <data name="Label_ConfigFile" xml:space="preserve">
+    <value>Configuration File</value>
+  </data>
+  <data name="Desc_SaveLoadConfig" xml:space="preserve">
+    <value>Save your current configuration or load a previously saved one.</value>
+  </data>
+  <data name="Btn_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Btn_Load" xml:space="preserve">
+    <value>Load</value>
+  </data>
+  <data name="Btn_SaveAs" xml:space="preserve">
+    <value>Save As...</value>
+  </data>
+
+  <!-- Buttons -->
+  <data name="Btn_Browse" xml:space="preserve">
+    <value>Browse...</value>
+  </data>
+  <data name="Btn_Build" xml:space="preserve">
+    <value>Build Installer</value>
+  </data>
+  <data name="Btn_Interrupt" xml:space="preserve">
+    <value>Interrupt</value>
+  </data>
+  <data name="Btn_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Btn_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Btn_OpenOutputFolder" xml:space="preserve">
+    <value>Open Output Folder</value>
+  </data>
+  <data name="Btn_OpenFolder" xml:space="preserve">
+    <value>Open Folder</value>
+  </data>
+  <data name="Btn_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+
+  <!-- Messages -->
+  <data name="Msg_BuildCompleted" xml:space="preserve">
+    <value>Build Completed</value>
+  </data>
+  <data name="Msg_Building" xml:space="preserve">
+    <value>Building...</value>
+  </data>
+  <data name="Msg_BuildSuccess" xml:space="preserve">
+    <value>Build completed successfully.</value>
+  </data>
+  <data name="Msg_BuildFailed" xml:space="preserve">
+    <value>Build failed. See log for details.</value>
+  </data>
+  <data name="Msg_BuildCancelled" xml:space="preserve">
+    <value>Build was cancelled by user.</value>
+  </data>
+  <data name="Msg_UnsavedChanges" xml:space="preserve">
+    <value>There are unsaved changes. Do you want to save before exiting?</value>
+  </data>
+  <data name="Msg_UnsavedTitle" xml:space="preserve">
+    <value>Unsaved Changes</value>
+  </data>
+  <data name="Msg_SaveAndExit" xml:space="preserve">
+    <value>Save and Exit</value>
+  </data>
+  <data name="Msg_ExitWithoutSaving" xml:space="preserve">
+    <value>Exit without Saving</value>
+  </data>
+  <data name="Msg_BuildInProgress" xml:space="preserve">
+    <value>Build is in progress. Do you want to cancel and exit?</value>
+  </data>
+  <data name="Msg_AlreadyRunning" xml:space="preserve">
+    <value>EasyNSIS is already running.</value>
+  </data>
+  <data name="Msg_ConfigLoaded" xml:space="preserve">
+    <value>Configuration loaded successfully.</value>
+  </data>
+  <data name="Msg_ConfigSaved" xml:space="preserve">
+    <value>Configuration saved successfully.</value>
+  </data>
+
+  <!-- Errors -->
+  <data name="Err_RequiredField" xml:space="preserve">
+    <value>This field is required.</value>
+  </data>
+  <data name="Err_InvalidVersion" xml:space="preserve">
+    <value>Version must be in format: X.X.X (max 4 segments, numbers only)</value>
+  </data>
+  <data name="Err_InvalidPath" xml:space="preserve">
+    <value>Path contains invalid characters.</value>
+  </data>
+  <data name="Err_InvalidPathEnding" xml:space="preserve">
+    <value>Path cannot end with a dot or space.</value>
+  </data>
+  <data name="Err_InvalidNameEnding" xml:space="preserve">
+    <value>Name cannot start or end with a dot or space.</value>
+  </data>
+  <data name="Err_NameTooLong" xml:space="preserve">
+    <value>Name must be 64 characters or less.</value>
+  </data>
+  <data name="Err_UncPathNotAllowed" xml:space="preserve">
+    <value>UNC/Network paths are not allowed.</value>
+  </data>
+  <data name="Err_PathNotFound" xml:space="preserve">
+    <value>Path does not exist.</value>
+  </data>
+  <data name="Err_FileNotFound" xml:space="preserve">
+    <value>File does not exist.</value>
+  </data>
+  <data name="Err_FolderNotFound" xml:space="preserve">
+    <value>Folder does not exist.</value>
+  </data>
+  <data name="Err_InvalidIconFormat" xml:space="preserve">
+    <value>Icon must be an .ico file.</value>
+  </data>
+  <data name="Err_ShortcutTargetNotFound" xml:space="preserve">
+    <value>Shortcut target not found: {0}</value>
+  </data>
+  <data name="Err_NsisNotFound" xml:space="preserve">
+    <value>NSIS not found at: {0}</value>
+  </data>
+  <data name="Err_NsisVersionMismatch" xml:space="preserve">
+    <value>NSIS version mismatch. Expected: {0}, Found: {1}</value>
+  </data>
+  <data name="Err_NsisValidationFailed" xml:space="preserve">
+    <value>Failed to validate NSIS: {0}</value>
+  </data>
+  <data name="Err_ValidationFailed" xml:space="preserve">
+    <value>Validation Errors</value>
+  </data>
+  <data name="Err_LoadConfigFailed" xml:space="preserve">
+    <value>Failed to load configuration: {0}</value>
+  </data>
+  <data name="Err_SaveConfigFailed" xml:space="preserve">
+    <value>Failed to save configuration: {0}</value>
+  </data>
+  <data name="Err_ReservedFileName" xml:space="preserve">
+    <value>Source folder contains reserved file: {0}</value>
+  </data>
+  <data name="Err_InvalidExecutableFormat" xml:space="preserve">
+    <value>Only .exe, .bat, .cmd files can be executed.</value>
+  </data>
+
+  <!-- PostInstall -->
+  <data name="Section_PostInstallActions" xml:space="preserve">
+    <value>Post-Install Actions</value>
+  </data>
+  <data name="Label_OpenInstallFolder" xml:space="preserve">
+    <value>Open install folder after installation</value>
+  </data>
+  <data name="Label_RunAfterInstall" xml:space="preserve">
+    <value>Run a file after installation</value>
+  </data>
+  <data name="Label_RunAfterInstallPath" xml:space="preserve">
+    <value>File to run (relative path from source folder):</value>
+  </data>
+  <data name="Desc_RunAfterInstall" xml:space="preserve">
+    <value>Specify an executable (.exe) or batch file (.bat, .cmd) from the source folder.</value>
+  </data>
+
+  <!-- Dialog Filters -->
+  <data name="Filter_XmlFiles" xml:space="preserve">
+    <value>XML Files (*.xml)|*.xml|All Files (*.*)|*.*</value>
+  </data>
+  <data name="Filter_ExecutableFiles" xml:space="preserve">
+    <value>Executable Files (*.exe;*.bat;*.cmd)|*.exe;*.bat;*.cmd|All Files (*.*)|*.*</value>
+  </data>
+  <data name="Filter_IcoFiles" xml:space="preserve">
+    <value>Icon Files (*.ico)|*.ico|All Files (*.*)|*.*</value>
+  </data>
+  <data name="Filter_TxtFiles" xml:space="preserve">
+    <value>Text Files (*.txt)|*.txt|All Files (*.*)|*.*</value>
+  </data>
+  <data name="Filter_AllFiles" xml:space="preserve">
+    <value>All Files (*.*)|*.*</value>
+  </data>
+</root>

@@ -1,0 +1,18 @@
+SOFTWARE LICENSE AGREEMENT
+
+This is a test license file for EasyNSIS integration testing.
+
+1. Grant of License
+   This software is provided for testing purposes only.
+
+2. Restrictions
+   - Do not use in production environments
+   - For testing purposes only
+
+3. Disclaimer
+   THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND.
+
+4. Termination
+   This license terminates automatically if you fail to comply with its terms.
+
+Copyright (c) 2025 Test Company. All rights reserved.

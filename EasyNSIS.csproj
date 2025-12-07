@@ -1,0 +1,69 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Exclude tests folder from compilation -->
+  <PropertyGroup>
+    <DefaultItemExcludes>$(DefaultItemExcludes);tests/**</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <!-- WPF does not support trimming -->
+    <PublishTrimmed>false</PublishTrimmed>
+
+    <!-- Assembly Info -->
+    <Company>Your Company Name</Company>
+    <Copyright>Copyright (c) 2025 Your Company Name. All rights reserved.</Copyright>
+    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <Product>EasyNSIS</Product>
+    <Description>NSIS Installer Builder GUI Application</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.*" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.*" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.*" />
+    <PackageReference Include="UTF.Unknown" Version="2.6.0" />
+  </ItemGroup>
+
+  <!-- Resource files -->
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Strings.ja.resx">
+      <DependentUpon>Strings.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Update="Resources\Strings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <!-- Copy assets folder to output -->
+  <ItemGroup>
+    <None Include="Assets\**\*" CopyToOutputDirectory="PreserveNewest" LinkBase="assets" />
+  </ItemGroup>
+
+  <!-- Copy tools folder to output (NSIS must be placed manually before build) -->
+  <ItemGroup>
+    <None Include="Tools\**\*" CopyToOutputDirectory="PreserveNewest" LinkBase="tools" />
+  </ItemGroup>
+
+  <!-- Embed license files as resources -->
+  <ItemGroup>
+    <EmbeddedResource Include="Licenses\*.txt" />
+    <EmbeddedResource Include="Licenses\*.md" />
+  </ItemGroup>
+
+</Project>

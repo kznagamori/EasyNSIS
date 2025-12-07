@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="0" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- Application -->
+  <data name="AppTitle" xml:space="preserve">
+    <value>EasyNSIS</value>
+  </data>
+  <data name="AppTitle_New" xml:space="preserve">
+    <value>EasyNSIS - 新規</value>
+  </data>
+  <data name="AppTitle_Format" xml:space="preserve">
+    <value>EasyNSIS - {0}</value>
+  </data>
+  <data name="AppSubtitle" xml:space="preserve">
+    <value>インストーラービルダー</value>
+  </data>
+  <data name="Btn_AboutLicenses" xml:space="preserve">
+    <value>About / ライセンス</value>
+  </data>
+
+  <!-- Tabs -->
+  <data name="Tab_BasicInfo" xml:space="preserve">
+    <value>基本情報</value>
+  </data>
+  <data name="Tab_SourceFolder" xml:space="preserve">
+    <value>インストール対象フォルダー</value>
+  </data>
+  <data name="Tab_InstallDestination" xml:space="preserve">
+    <value>インストール先</value>
+  </data>
+  <data name="Tab_Shortcuts" xml:space="preserve">
+    <value>ショートカット</value>
+  </data>
+  <data name="Tab_License" xml:space="preserve">
+    <value>ライセンス</value>
+  </data>
+  <data name="Tab_Output" xml:space="preserve">
+    <value>出力設定</value>
+  </data>
+  <data name="Tab_SaveLoad" xml:space="preserve">
+    <value>設定保存・復元</value>
+  </data>
+  <data name="Tab_PostInstall" xml:space="preserve">
+    <value>インストール後設定</value>
+  </data>
+
+  <!-- Basic Info -->
+  <data name="Section_ApplicationDetails" xml:space="preserve">
+    <value>アプリケーション詳細</value>
+  </data>
+  <data name="Section_RegistrationMode" xml:space="preserve">
+    <value>登録モード</value>
+  </data>
+  <data name="Radio_RegisterToAppsAndFeatures" xml:space="preserve">
+    <value>アプリと機能に登録する</value>
+  </data>
+  <data name="Radio_NoRegistry" xml:space="preserve">
+    <value>レジストリを使用しない</value>
+  </data>
+  <data name="Label_NoRegistryWarning" xml:space="preserve">
+    <value>アプリと機能への登録が行われず、一部機能が無効になります。</value>
+  </data>
+  <data name="Label_CompanyName" xml:space="preserve">
+    <value>会社名/所属団体:</value>
+  </data>
+  <data name="Label_ApplicationName" xml:space="preserve">
+    <value>アプリケーション名:</value>
+  </data>
+  <data name="Label_Version" xml:space="preserve">
+    <value>バージョン:</value>
+  </data>
+  <data name="Label_Language" xml:space="preserve">
+    <value>言語設定</value>
+  </data>
+  <data name="Label_UseLocale" xml:space="preserve">
+    <value>システムロケールを使用</value>
+  </data>
+  <data name="Label_FixedLanguage" xml:space="preserve">
+    <value>固定言語:</value>
+  </data>
+  <data name="Label_InstallerIcon" xml:space="preserve">
+    <value>インストーラーアイコン</value>
+  </data>
+
+  <!-- Source Folder -->
+  <data name="Label_SourceFolderPath" xml:space="preserve">
+    <value>インストール対象フォルダーのパス:</value>
+  </data>
+  <data name="Label_SourceFolderDescription" xml:space="preserve">
+    <value>インストールするファイルが含まれるフォルダーを選択してください。サブフォルダーを含むすべてのファイルが含まれます。</value>
+  </data>
+
+  <!-- Install Destination -->
+  <data name="Label_InstallDestination" xml:space="preserve">
+    <value>既定のインストール先</value>
+  </data>
+  <data name="Radio_AppDataRoaming" xml:space="preserve">
+    <value>AppData（ローミング）</value>
+  </data>
+  <data name="Radio_AppDataLocal" xml:space="preserve">
+    <value>AppData（ローカル）</value>
+  </data>
+  <data name="Radio_ProgramFiles" xml:space="preserve">
+    <value>Program Files（管理者権限が必要）</value>
+  </data>
+  <data name="Radio_Custom" xml:space="preserve">
+    <value>その他:</value>
+  </data>
+  <data name="Label_AllowUserChange" xml:space="preserve">
+    <value>ユーザーによるインストール先の変更を許可</value>
+  </data>
+
+  <!-- Shortcuts -->
+  <data name="Label_DesktopShortcuts" xml:space="preserve">
+    <value>デスクトップショートカット</value>
+  </data>
+  <data name="Label_StartMenuShortcuts" xml:space="preserve">
+    <value>スタートメニューショートカット</value>
+  </data>
+  <data name="Header_Type" xml:space="preserve">
+    <value>種類</value>
+  </data>
+  <data name="Header_Path" xml:space="preserve">
+    <value>パス</value>
+  </data>
+  <data name="Btn_AddFile" xml:space="preserve">
+    <value>+ファイル</value>
+  </data>
+  <data name="Btn_AddFolder" xml:space="preserve">
+    <value>+フォルダ</value>
+  </data>
+  <data name="Btn_Remove" xml:space="preserve">
+    <value>-</value>
+  </data>
+
+  <!-- License -->
+  <data name="Label_LicenseType" xml:space="preserve">
+    <value>ライセンス種別</value>
+  </data>
+  <data name="Radio_LicenseDefault" xml:space="preserve">
+    <value>デフォルトのライセンス</value>
+  </data>
+  <data name="Radio_LicenseFile" xml:space="preserve">
+    <value>外部ファイル:</value>
+  </data>
+  <data name="Radio_LicenseText" xml:space="preserve">
+    <value>テキスト入力:</value>
+  </data>
+
+  <!-- Output -->
+  <data name="Label_OutputFolder" xml:space="preserve">
+    <value>出力フォルダー</value>
+  </data>
+  <data name="Label_CleanupType" xml:space="preserve">
+    <value>アンインストール時のクリーンアップ</value>
+  </data>
+  <data name="Radio_CleanupAll" xml:space="preserve">
+    <value>すべて削除</value>
+  </data>
+  <data name="Radio_CleanupPreserve" xml:space="preserve">
+    <value>ユーザーデータ保護</value>
+  </data>
+
+  <!-- Save/Load -->
+  <data name="Label_ConfigFile" xml:space="preserve">
+    <value>設定ファイル</value>
+  </data>
+  <data name="Desc_SaveLoadConfig" xml:space="preserve">
+    <value>現在の設定を保存するか、以前保存した設定を読み込みます。</value>
+  </data>
+  <data name="Btn_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Btn_Load" xml:space="preserve">
+    <value>読み込み</value>
+  </data>
+  <data name="Btn_SaveAs" xml:space="preserve">
+    <value>名前を付けて保存...</value>
+  </data>
+
+  <!-- Buttons -->
+  <data name="Btn_Browse" xml:space="preserve">
+    <value>参照...</value>
+  </data>
+  <data name="Btn_Build" xml:space="preserve">
+    <value>ビルド</value>
+  </data>
+  <data name="Btn_Interrupt" xml:space="preserve">
+    <value>中断</value>
+  </data>
+  <data name="Btn_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Btn_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Btn_OpenOutputFolder" xml:space="preserve">
+    <value>出力フォルダーを開く</value>
+  </data>
+  <data name="Btn_OpenFolder" xml:space="preserve">
+    <value>フォルダーを開く</value>
+  </data>
+  <data name="Btn_Close" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+
+  <!-- Messages -->
+  <data name="Msg_BuildCompleted" xml:space="preserve">
+    <value>ビルド完了</value>
+  </data>
+  <data name="Msg_Building" xml:space="preserve">
+    <value>ビルド中...</value>
+  </data>
+  <data name="Msg_BuildSuccess" xml:space="preserve">
+    <value>ビルドが正常に完了しました。</value>
+  </data>
+  <data name="Msg_BuildFailed" xml:space="preserve">
+    <value>ビルドに失敗しました。ログを確認してください。</value>
+  </data>
+  <data name="Msg_BuildCancelled" xml:space="preserve">
+    <value>ユーザーによってビルドが中断されました。</value>
+  </data>
+  <data name="Msg_UnsavedChanges" xml:space="preserve">
+    <value>未保存の変更があります。終了前に保存しますか？</value>
+  </data>
+  <data name="Msg_UnsavedTitle" xml:space="preserve">
+    <value>未保存の変更</value>
+  </data>
+  <data name="Msg_SaveAndExit" xml:space="preserve">
+    <value>保存して終了</value>
+  </data>
+  <data name="Msg_ExitWithoutSaving" xml:space="preserve">
+    <value>保存せずに終了</value>
+  </data>
+  <data name="Msg_BuildInProgress" xml:space="preserve">
+    <value>ビルド中です。中断して終了しますか？</value>
+  </data>
+  <data name="Msg_AlreadyRunning" xml:space="preserve">
+    <value>EasyNSISは既に実行中です。</value>
+  </data>
+  <data name="Msg_ConfigLoaded" xml:space="preserve">
+    <value>設定を読み込みました。</value>
+  </data>
+  <data name="Msg_ConfigSaved" xml:space="preserve">
+    <value>設定を保存しました。</value>
+  </data>
+
+  <!-- Errors -->
+  <data name="Err_RequiredField" xml:space="preserve">
+    <value>この項目は必須です。</value>
+  </data>
+  <data name="Err_InvalidVersion" xml:space="preserve">
+    <value>バージョンは X.X.X 形式で入力してください（最大4セグメント、数字のみ）</value>
+  </data>
+  <data name="Err_InvalidPath" xml:space="preserve">
+    <value>パスに使用できない文字が含まれています。</value>
+  </data>
+  <data name="Err_InvalidPathEnding" xml:space="preserve">
+    <value>パスの末尾にドットまたはスペースは使用できません。</value>
+  </data>
+  <data name="Err_InvalidNameEnding" xml:space="preserve">
+    <value>名前の先頭または末尾にドットまたはスペースは使用できません。</value>
+  </data>
+  <data name="Err_NameTooLong" xml:space="preserve">
+    <value>名前は64文字以内で入力してください。</value>
+  </data>
+  <data name="Err_UncPathNotAllowed" xml:space="preserve">
+    <value>UNC/ネットワークパスは使用できません。</value>
+  </data>
+  <data name="Err_PathNotFound" xml:space="preserve">
+    <value>パスが存在しません。</value>
+  </data>
+  <data name="Err_FileNotFound" xml:space="preserve">
+    <value>ファイルが存在しません。</value>
+  </data>
+  <data name="Err_FolderNotFound" xml:space="preserve">
+    <value>フォルダーが存在しません。</value>
+  </data>
+  <data name="Err_InvalidIconFormat" xml:space="preserve">
+    <value>アイコンは .ico ファイルを指定してください。</value>
+  </data>
+  <data name="Err_ShortcutTargetNotFound" xml:space="preserve">
+    <value>ショートカットのターゲットが見つかりません: {0}</value>
+  </data>
+  <data name="Err_NsisNotFound" xml:space="preserve">
+    <value>NSISが見つかりません: {0}</value>
+  </data>
+  <data name="Err_NsisVersionMismatch" xml:space="preserve">
+    <value>NSISのバージョンが一致しません。期待: {0}、検出: {1}</value>
+  </data>
+  <data name="Err_NsisValidationFailed" xml:space="preserve">
+    <value>NSISの検証に失敗しました: {0}</value>
+  </data>
+  <data name="Err_ValidationFailed" xml:space="preserve">
+    <value>バリデーションエラー</value>
+  </data>
+  <data name="Err_LoadConfigFailed" xml:space="preserve">
+    <value>設定の読み込みに失敗しました: {0}</value>
+  </data>
+  <data name="Err_SaveConfigFailed" xml:space="preserve">
+    <value>設定の保存に失敗しました: {0}</value>
+  </data>
+  <data name="Err_ReservedFileName" xml:space="preserve">
+    <value>ソースフォルダーに予約ファイルが含まれています: {0}</value>
+  </data>
+  <data name="Err_InvalidExecutableFormat" xml:space="preserve">
+    <value>.exe, .bat, .cmd ファイルのみ実行できます。</value>
+  </data>
+
+  <!-- PostInstall -->
+  <data name="Section_PostInstallActions" xml:space="preserve">
+    <value>インストール後の動作</value>
+  </data>
+  <data name="Label_OpenInstallFolder" xml:space="preserve">
+    <value>インストール完了後にインストールフォルダーを開く</value>
+  </data>
+  <data name="Label_RunAfterInstall" xml:space="preserve">
+    <value>インストール完了後にファイルを実行する</value>
+  </data>
+  <data name="Label_RunAfterInstallPath" xml:space="preserve">
+    <value>実行するファイル（インストール対象フォルダーからの相対パス）:</value>
+  </data>
+  <data name="Desc_RunAfterInstall" xml:space="preserve">
+    <value>インストール対象フォルダー内の実行ファイル（.exe）またはバッチファイル（.bat, .cmd）を指定してください。</value>
+  </data>
+
+  <!-- Dialog Filters -->
+  <data name="Filter_XmlFiles" xml:space="preserve">
+    <value>XMLファイル (*.xml)|*.xml|すべてのファイル (*.*)|*.*</value>
+  </data>
+  <data name="Filter_ExecutableFiles" xml:space="preserve">
+    <value>実行可能ファイル (*.exe;*.bat;*.cmd)|*.exe;*.bat;*.cmd|すべてのファイル (*.*)|*.*</value>
+  </data>
+  <data name="Filter_IcoFiles" xml:space="preserve">
+    <value>アイコンファイル (*.ico)|*.ico|すべてのファイル (*.*)|*.*</value>
+  </data>
+  <data name="Filter_TxtFiles" xml:space="preserve">
+    <value>テキストファイル (*.txt)|*.txt|すべてのファイル (*.*)|*.*</value>
+  </data>
+  <data name="Filter_AllFiles" xml:space="preserve">
+    <value>すべてのファイル (*.*)|*.*</value>
+  </data>
+</root>

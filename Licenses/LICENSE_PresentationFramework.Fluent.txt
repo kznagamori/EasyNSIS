@@ -1,6 +1,19 @@
-MIT License
+PresentationFramework.Fluent
+==============================
 
-Copyright (c) 2025 Your Company Name
+PresentationFramework.Fluent is part of the .NET WPF framework.
+
+License: MIT License
+
+Source: https://github.com/dotnet/wpf
+
+---
+
+The MIT License (MIT)
+
+Copyright (c) .NET Foundation and Contributors
+
+All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -1,0 +1,40 @@
+END USER LICENSE AGREEMENT
+
+Please read this End User License Agreement carefully before installing the Software.
+By clicking "I Agree", you agree to be bound by the terms of this Agreement.
+
+1. LICENSE GRANT
+The Licensor grants you a non-exclusive right to use the Software in accordance
+with the terms of this Agreement.
+
+2. COMMERCIAL USE
+This Software is licensed for commercial use.
+
+3. RESTRICTIONS
+You may not:
+- Redistribute the Software
+- Reverse engineer, decompile, or disassemble the Software
+- Modify or create derivative works of the Software
+
+4. NO WARRANTY
+THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT.
+
+5. LIMITATION OF LIABILITY
+IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+6. TERMINATION
+This Agreement is effective until terminated. It will terminate automatically
+if you fail to comply with any term of this Agreement. Upon termination,
+you must destroy all copies of the Software.
+
+7. GOVERNING LAW
+This Agreement shall be governed by and construed in accordance with the laws
+of Japan.
