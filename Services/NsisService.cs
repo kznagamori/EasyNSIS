@@ -95,7 +95,8 @@ public class NsisService : INsisService
         if (config.BasicInfo.RegistrationMode != RegistrationMode.NoRegistry)
         {
             var regRoot = config.InstallDestination.Type == InstallDestinationType.ProgramFiles ? "HKLM" : "HKCU";
-            sb.AppendLine($"InstallDirRegKey {regRoot} \"Software\\{companyName}\\{appName}\" \"InstallLocation\"");
+            var regSubPath = string.IsNullOrWhiteSpace(companyName) ? appName : $"{companyName}\\{appName}";
+            sb.AppendLine($"InstallDirRegKey {regRoot} \"Software\\{regSubPath}\" \"InstallLocation\"");
         }
 
         // 権限レベル
@@ -228,6 +229,10 @@ public class NsisService : INsisService
     {
         var output = new StringBuilder();
 
+        // NSISはシステムのコードページで出力するため、システムのデフォルトエンコーディングを使用
+        // 日本語WindowsではCP932 (Shift_JIS)
+        var systemEncoding = Encoding.GetEncoding(System.Globalization.CultureInfo.CurrentCulture.TextInfo.ANSICodePage);
+
         var process = new Process
         {
             StartInfo = new ProcessStartInfo
@@ -239,8 +244,8 @@ public class NsisService : INsisService
                 RedirectStandardError = true,
                 UseShellExecute = false,
                 CreateNoWindow = true,
-                StandardOutputEncoding = Encoding.UTF8,
-                StandardErrorEncoding = Encoding.UTF8
+                StandardOutputEncoding = systemEncoding,
+                StandardErrorEncoding = systemEncoding
             },
             EnableRaisingEvents = true
         };
@@ -289,13 +294,16 @@ public class NsisService : INsisService
         var company = config.BasicInfo.CompanyName;
         var app = config.BasicInfo.ApplicationName;
 
+        // 会社名が空の場合はアプリ名のみ
+        var subPath = string.IsNullOrWhiteSpace(company) ? app : $"{company}\\{app}";
+
         return config.InstallDestination.Type switch
         {
-            InstallDestinationType.AppDataRoaming => $"$APPDATA\\{company}\\{app}",
-            InstallDestinationType.AppDataLocal => $"$LOCALAPPDATA\\{company}\\{app}",
-            InstallDestinationType.ProgramFiles => $"$PROGRAMFILES64\\{company}\\{app}",
+            InstallDestinationType.AppDataRoaming => $"$APPDATA\\{subPath}",
+            InstallDestinationType.AppDataLocal => $"$LOCALAPPDATA\\{subPath}",
+            InstallDestinationType.ProgramFiles => $"$PROGRAMFILES64\\{subPath}",
             InstallDestinationType.Custom => config.InstallDestination.CustomPath,
-            _ => $"$APPDATA\\{company}\\{app}"
+            _ => $"$APPDATA\\{subPath}"
         };
     }
 
@@ -653,9 +661,12 @@ public class NsisService : INsisService
         var version = config.BasicInfo.Version;
         var regRoot = config.InstallDestination.Type == InstallDestinationType.ProgramFiles ? "HKLM" : "HKCU";
 
+        // 会社名が空の場合はアプリ名のみ
+        var regSubPath = string.IsNullOrWhiteSpace(company) ? app : $"{company}\\{app}";
+
         sb.AppendLine("    ; Registry entries");
-        sb.AppendLine($"    WriteRegStr {regRoot} \"Software\\{company}\\{app}\" \"InstallLocation\" \"$INSTDIR\"");
-        sb.AppendLine($"    WriteRegStr {regRoot} \"Software\\{company}\\{app}\" \"Version\" \"{version}\"");
+        sb.AppendLine($"    WriteRegStr {regRoot} \"Software\\{regSubPath}\" \"InstallLocation\" \"$INSTDIR\"");
+        sb.AppendLine($"    WriteRegStr {regRoot} \"Software\\{regSubPath}\" \"Version\" \"{version}\"");
         sb.AppendLine();
 
         // アプリと機能に登録する場合のみアンインストール情報を書き込む
@@ -709,6 +720,8 @@ public class NsisService : INsisService
         // 会社名が未入力の場合はアプリケーション名を使用（スタートメニューフォルダー用）
         var startMenuFolder = !string.IsNullOrWhiteSpace(company) ? company : app;
         var regRoot = config.InstallDestination.Type == InstallDestinationType.ProgramFiles ? "HKLM" : "HKCU";
+        // 会社名が空の場合はアプリ名のみ
+        var regSubPath = string.IsNullOrWhiteSpace(company) ? app : $"{company}\\{app}";
 
         sb.AppendLine("Section \"Uninstall\"");
         sb.AppendLine("    ; Set 64-bit registry view");
@@ -821,7 +834,7 @@ public class NsisService : INsisService
         if (config.BasicInfo.RegistrationMode != RegistrationMode.NoRegistry)
         {
             sb.AppendLine("    ; Remove registry entries");
-            sb.AppendLine($"    DeleteRegKey {regRoot} \"Software\\{company}\\{app}\"");
+            sb.AppendLine($"    DeleteRegKey {regRoot} \"Software\\{regSubPath}\"");
             sb.AppendLine($"    DeleteRegKey {regRoot} \"Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{app}\"");
             sb.AppendLine();
         }

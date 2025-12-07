@@ -218,10 +218,13 @@ public class NsisServiceTests : IDisposable
         var exception = await Record.ExceptionAsync(async () =>
             await _service.BuildInstallerAsync(scriptPath, null, cts.Token));
 
-        // OperationCanceledException または Win32Exception (makensis.exeが見つからない場合) のいずれか
+        // OperationCanceledException, Win32Exception (makensis.exeが見つからない場合),
+        // または NotSupportedException (Linux/WSL環境でWindowsプロセスを起動できない場合) のいずれか
         Assert.True(
-            exception is OperationCanceledException || exception is System.ComponentModel.Win32Exception,
-            $"Expected OperationCanceledException or Win32Exception, but got {exception?.GetType().Name ?? "null"}");
+            exception is OperationCanceledException ||
+            exception is System.ComponentModel.Win32Exception ||
+            exception is NotSupportedException,
+            $"Expected OperationCanceledException, Win32Exception, or NotSupportedException, but got {exception?.GetType().Name ?? "null"}");
     }
 
     [Fact]
@@ -566,5 +569,75 @@ public class NsisServiceTests : IDisposable
 
         var uninstallSection = script[uninstallSectionIndex..];
         Assert.Contains("RMDir /r \"$SMPROGRAMS\\TestApp\"", uninstallSection);
+    }
+
+    [Fact]
+    public void UT_NSIS_025_GenerateScript_CompanyNameProvided_GeneratesCorrectInstallPath()
+    {
+        // Arrange
+        var config = CreateMinimalConfig();
+        config.BasicInfo.CompanyName = "TestCompany";
+        config.BasicInfo.ApplicationName = "TestApp";
+        config.InstallDestination.Type = InstallDestinationType.AppDataRoaming;
+
+        // Act
+        var script = _service.GenerateScript(config);
+
+        // Assert
+        // 会社名がある場合は $APPDATA\会社名\アプリ名 形式
+        Assert.Contains("InstallDir \"$APPDATA\\TestCompany\\TestApp\"", script);
+    }
+
+    [Fact]
+    public void UT_NSIS_026_GenerateScript_CompanyNameEmpty_GeneratesCorrectInstallPathWithoutDoubleBackslash()
+    {
+        // Arrange
+        var config = CreateMinimalConfig();
+        config.BasicInfo.CompanyName = "";
+        config.BasicInfo.ApplicationName = "TestApp";
+        config.InstallDestination.Type = InstallDestinationType.AppDataRoaming;
+
+        // Act
+        var script = _service.GenerateScript(config);
+
+        // Assert
+        // 会社名が空の場合は $APPDATA\アプリ名 形式（\\が連続しない）
+        Assert.Contains("InstallDir \"$APPDATA\\TestApp\"", script);
+        Assert.DoesNotContain("$APPDATA\\\\TestApp", script); // \\が連続しないことを確認
+    }
+
+    [Fact]
+    public void UT_NSIS_027_GenerateScript_CompanyNameProvided_GeneratesCorrectRegistryPath()
+    {
+        // Arrange
+        var config = CreateMinimalConfig();
+        config.BasicInfo.CompanyName = "TestCompany";
+        config.BasicInfo.ApplicationName = "TestApp";
+        config.BasicInfo.RegistrationMode = RegistrationMode.RegisterToAppsAndFeatures;
+
+        // Act
+        var script = _service.GenerateScript(config);
+
+        // Assert
+        // 会社名がある場合は Software\会社名\アプリ名 形式
+        Assert.Contains("\"Software\\TestCompany\\TestApp\"", script);
+    }
+
+    [Fact]
+    public void UT_NSIS_028_GenerateScript_CompanyNameEmpty_GeneratesCorrectRegistryPathWithoutDoubleBackslash()
+    {
+        // Arrange
+        var config = CreateMinimalConfig();
+        config.BasicInfo.CompanyName = "";
+        config.BasicInfo.ApplicationName = "TestApp";
+        config.BasicInfo.RegistrationMode = RegistrationMode.RegisterToAppsAndFeatures;
+
+        // Act
+        var script = _service.GenerateScript(config);
+
+        // Assert
+        // 会社名が空の場合は Software\アプリ名 形式（\\が連続しない）
+        Assert.Contains("\"Software\\TestApp\"", script);
+        Assert.DoesNotContain("Software\\\\TestApp", script); // \\が連続しないことを確認
     }
 }

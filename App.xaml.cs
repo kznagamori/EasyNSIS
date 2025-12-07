@@ -1,4 +1,5 @@
 using System.IO;
+using System.Text;
 using System.Threading;
 using System.Windows;
 using EasyNSIS.Helpers;
@@ -19,6 +20,9 @@ public partial class App : Application
 
     private void Application_Startup(object sender, StartupEventArgs e)
     {
+        // レガシーエンコーディング（CP932等）のサポートを有効化
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
         // 多重起動防止
         const string mutexName = "EasyNSIS_SingleInstance_Mutex";
         _mutex = new Mutex(true, mutexName, out bool createdNew);

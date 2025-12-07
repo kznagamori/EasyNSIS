@@ -77,7 +77,7 @@ dotnet test tests/EasyNSIS.Tests --filter "FullyQualifiedName~ValidationService"
 | UT-CFG-008 | PostInstall設定の保存 |
 | UT-CFG-009 | PostInstall設定の読み込み |
 
-### NsisService Tests (28テスト)
+### NsisService Tests (32テスト)
 
 NSISスクリプト生成機能をテストします。
 
@@ -107,6 +107,10 @@ NSISスクリプト生成機能をテストします。
 | UT-NSIS-022 | 会社名未入力時スタートメニューフォルダー生成（アプリ名使用） |
 | UT-NSIS-023 | アンインストール時スタートメニュー削除（会社名あり） |
 | UT-NSIS-024 | アンインストール時スタートメニュー削除（会社名未入力） |
+| UT-NSIS-025 | 会社名あり時インストールパス生成 |
+| UT-NSIS-026 | 会社名未入力時インストールパス生成（\\が連続しない） |
+| UT-NSIS-027 | 会社名あり時レジストリパス生成 |
+| UT-NSIS-028 | 会社名未入力時レジストリパス生成（\\が連続しない） |
 
 ### Converter Tests (14テスト)
 
@@ -128,9 +132,9 @@ WPFの値コンバーターをテストします。
 |----------|---------|------|------|
 | ValidationService | 64 | - | - |
 | ConfigurationService | 9 | - | - |
-| NsisService | 28 | - | - |
+| NsisService | 32 | - | - |
 | Converters | 14 | - | - |
-| **合計** | **115** | **-** | **-** |
+| **合計** | **119** | **-** | **-** |
 
 ※ テスト結果は実行時に更新されます
 
