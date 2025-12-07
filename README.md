@@ -496,8 +496,4 @@ EasyNSISはWindowsのテーマ設定（ライト/ダーク）を自動検出し�
 
 ## 作者
 
-Your Name / Your Company
-
----
-
-Made with [Claude Code](https://claude.ai/claude-code)
+kznagamori
